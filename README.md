@@ -78,6 +78,10 @@ By default, firmware bundles are automatically downloaded from an [external repo
 - [Kernel64Patcher](https://github.com/zoe-vb/Kernel64Patcher)
 - [Link Identity Editor](https://github.com/sbingner/ldid)
     - A compiled binary can be found [here](https://github.com/sbingner/ldid/releases)
+- [hfsplus](https://github.com/planetbeing/libdmg-hfsplus)
+    - To build cmake .
+    - cd hfs
+    - sudo cp hfsplus /usr/bin
 - Python dependencies:
     - `pip3 install -r requirements.txt`
 
@@ -85,4 +89,4 @@ By default, firmware bundles are automatically downloaded from an [external repo
 - [exploit3d](https://twitter.com/exploit3dguy) for [asr64_patcher](https://github.com/exploit3dguy/asr64_patcher)
 - [NotHereForTheDong](https://github.com/NotHereForTheDong) for creating many Firmware Bundles and beta testing
 - [tale](https://twitter.com/aarnavtale), [Chibibowa](https://twitter.com/Chibibowa), and [Moses](https://twitter.com/MosesBuckwalter) for beta testing
-- [mcapollo](https://github.com/mcapollo for the refactor allowing for ramdisk patched on linux
+- [mcapollo](https://github.com/mcapollo) for the refactor allowing for ramdisk patched on linux
