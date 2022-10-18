@@ -69,13 +69,13 @@ By default, firmware bundles are automatically downloaded from an [external repo
 - A computer running macOS
 - At least **250mbs** of free space on your computer
 - An Internet connection
-- [asr64_patcher](https://github.com/exploit3dguy/asr64_patcher)
-    - A compiled binary can be found [here](https://github.com/exploit3dguy/asr64_patcher/releases)
+- [asr64_patcher](https://github.com/zoe-vb/asr64_patcher_linux)
+    - A compiled binary can be found [here](https://github.com/zoe-vb/asr64_patcher_linux/releases)
 - [img4lib](https://github.com/xerub/img4lib)
     - A compiled binary can be found [here](https://github.com/xerub/img4lib/releases)
 - [kairos](https://github.com/dayt0n/kairos)
     - A compiled binary can be found [here](https://github.com/dayt0n/kairos/releases)
-- [Kernel64Patcher](https://github.com/Ralph0045/Kernel64Patcher)
+- [Kernel64Patcher](https://github.com/zoe-vb/Kernel64Patcher)
 - [Link Identity Editor](https://github.com/sbingner/ldid)
     - A compiled binary can be found [here](https://github.com/sbingner/ldid/releases)
 - Python dependencies:
@@ -85,5 +85,4 @@ By default, firmware bundles are automatically downloaded from an [external repo
 - [exploit3d](https://twitter.com/exploit3dguy) for [asr64_patcher](https://github.com/exploit3dguy/asr64_patcher)
 - [NotHereForTheDong](https://github.com/NotHereForTheDong) for creating many Firmware Bundles and beta testing
 - [tale](https://twitter.com/aarnavtale), [Chibibowa](https://twitter.com/Chibibowa), and [Moses](https://twitter.com/MosesBuckwalter) for beta testing
-
-Finally, if you need help or have any questions about Inferius, join my [Discord server](https://m1sta.xyz/discord).
+- [mcapollo](https://github.com/mcapollo for the refactor allowing for ramdisk patched on linux
