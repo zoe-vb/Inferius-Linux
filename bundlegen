@@ -16,6 +16,22 @@ import sys
 import time
 
 
+def execute(arguments, ignore_errors = False) -> str:
+  """
+  Wrapper for `subprocess.run`,
+    - Stops process on error.
+    - Returns stdout on success
+  FIXME: There should be a better way to wrap & check status code on each command
+  """
+  
+  result = subprocess.run(arguments, capture_output=True)
+  if (result.returncode > 0):
+    print_error(f'Command "{arguments}" returned non-zero')
+    if not ignore_errors:
+      sys.exit(1)
+
+  return result.stdout
+
 def check_bin(binary):
     if shutil.which(binary) is None:
         sys.exit(f"[ERROR] '{binary}' was not found on your system. Exiting.")
@@ -326,24 +342,14 @@ def main():
 
         partialzip_extract(firm['url'], ramdisk['ipsw_path'], tmpdir)
         decrypt(ramdisk['path'], f"{ramdisk['path']}_rdsk.dmg")
-
-        mount_rdsk(f"{ramdisk['path']}_rdsk.dmg", f'{tmpdir}/ramdisk')
+        execute(['hfsplus', f'{ramdisk['path']}_rdsk.dmg', 'extract', '/usr/sbin/asr', f'{tmpdir}/asr'])
         shutil.move(f'{tmpdir}/ramdisk/usr/sbin/asr', f'{tmpdir}/asr')
-        unmount_rdsk(f'{tmpdir}/ramdisk')
 
         patch_asr(f'{tmpdir}/asr', f'{tmpdir}/asr.pwn')
-        os.chmod(f'{tmpdir}/asr.pwn', 0o755)
-
-        mount_rdsk(f"{ramdisk['path']}_rdsk.dmg", f'{tmpdir}/ramdisk')
-        try:
-            shutil.move(f'{tmpdir}/asr.pwn', f'{tmpdir}/ramdisk/usr/sbin/asr')
-        except OSError:
-            unmount_rdsk(f'{tmpdir}/ramdisk')
-            resize_rdsk(f"{ramdisk['path']}_rdsk.dmg")
-            mount_rdsk(f"{ramdisk['path']}_rdsk.dmg", f'{tmpdir}/ramdisk')
-            shutil.move(f'{tmpdir}/asr.pwn', f'{tmpdir}/ramdisk/usr/sbin/asr')
-
-        unmount_rdsk(f'{tmpdir}/ramdisk')
+        os.chmod(f'{tmpdir}/asr.pwn', 00755)
+        execute(['hfsplus', f'{ramdisk['path']}_rdsk.dmg', 'grow', str(round(5e+8))])
+        execute(['hfsplus', f'{ramdisk['path']}_rdsk.dmg', 'add', f'{tmpdir}/asr', '/usr/sbin/asr'])
+        
         create_im4p(f"{ramdisk['path']}_rdsk.dmg", f"{ramdisk['path']}.im4p", 'rdsk')
         bsdiff4.file_diff(ramdisk['path'], f"{ramdisk['path']}.im4p", f"{bundle}/{ramdisk['name'][:-4]}.asr.patch")
 
